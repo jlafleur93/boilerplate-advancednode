@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.route("/").get((req, res) => {
   const ObjValues = {
-    title: "whats up I know templating",
-    message: "don't login, ever please :()",
+    title: "Hello",
+    message: "Please login",
   };
   res.render("../views/pug", ObjValues);
 });
