@@ -1,10 +1,11 @@
 "use strict";
-require("dotenv").config({ path: "../sample.env" });
+
 const express = require("express");
 const myDB = require("./connection");
 const passport = require("passport");
 const session = require("express-session");
 const fccTesting = require("./freeCodeCamp/fcctesting.js");
+const ObjectID = require("mongodb").ObjectID;
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    secret: process.env.SECRET || "42",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     cookie: { secure: false },
@@ -24,6 +25,14 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+passport.deserializeUser((id, done) => {
+  myDataBase.findOne({ _id: new ObjectID(id) }, (err, doc) => {
+    done(null, null);
+  });
+});
 
 app.route("/").get((req, res) => {
   const ObjValues = {
