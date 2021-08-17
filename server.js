@@ -13,7 +13,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.route("/").get((req, res) => {
-  res.render("../views/pug");
+  const ObjValues = {
+    title: "whats up I know templating",
+    message: "don't login, ever please :()",
+  };
+  res.render("../views/pug", ObjValues);
 });
 
 const PORT = process.env.PORT || 3000;
