@@ -36,6 +36,7 @@ myDB(async (client) => {
     const ObjValues = {
       title: "Connected to Database",
       message: "Please login",
+      showLogin: true,
     };
     res.render("../views/pug", ObjValues);
   });
