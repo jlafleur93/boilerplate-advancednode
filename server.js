@@ -38,7 +38,7 @@ myDB(async (client) => {
       message: "Please login",
       showLogin: true,
     };
-    res.render("./views/pug", ObjValues);
+    res.render("pug/index.pug", ObjValues);
   });
 
   // Serialization and deserialization here...
