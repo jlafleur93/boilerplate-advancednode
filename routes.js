@@ -31,6 +31,18 @@ module.exports = function (app, myDataBase) {
     req.logout();
     res.redirect("/");
   });
+  app.route("/auth/github").get(passport.authenticate("github"), (req, res) => {
+    res.redirect("/");
+  });
+
+  app
+    .route("/auth/github/callback")
+    .get(
+      passport.authenticate("github", { failureRedirect: "/" }),
+      (req, res) => {
+        res.redirect("/profile");
+      },
+    );
 
   app.route("/register").post(
     (req, res, next) => {
